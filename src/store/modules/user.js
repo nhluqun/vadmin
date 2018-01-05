@@ -1,6 +1,6 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-
+import server from '../../config/api.js';
 const user = {
   state: {
     user: '',
@@ -46,14 +46,20 @@ const user = {
   actions: {
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
+
       const username = userInfo.username.trim()
+console.log('username='+username);
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
+        console.log('password'+userInfo.password+'clientid='+server.client.client_id);
+
+        loginByUsername(username, userInfo.password,'password',server.client.client_id,server.client.client_secret,'*').then(response => {
+console.log('login success!');
           const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          commit('SET_TOKEN', data.access_token)//把token改成access_token
+          setToken(response.data.access_token);
           resolve()
         }).catch(error => {
+          console.log('login fail');
           reject(error)
         })
       })
@@ -62,15 +68,16 @@ const user = {
     // 获取用户信息
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getUserInfo(state.token).then(response => {
+      //  getUserInfo(state.token).then(response => {
+        getUserInfo().then(response => {
           if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
             reject('error')
           }
           const data = response.data
-          commit('SET_ROLES', data.role)
+          //commit('SET_ROLES', data.role)
           commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
+          //commit('SET_AVATAR', data.avatar)
+          //commit('SET_INTRODUCTION', data.introduction)
           resolve(response)
         }).catch(error => {
           reject(error)

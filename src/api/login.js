@@ -1,12 +1,16 @@
 import request from '@/utils/request'
 
-export function loginByUsername(username, password) {
+export function loginByUsername(username, password,grant_type,client_id,client_secret,scope) {
   const data = {
     username,
-    password
+    password,
+    grant_type,
+    client_id,
+    client_secret,
+    scope
   }
   return request({
-    url: '/login/login',
+    url: '/oauth/token',
     method: 'post',
     data
   })
@@ -14,16 +18,15 @@ export function loginByUsername(username, password) {
 
 export function logout() {
   return request({
-    url: '/login/logout',
+    url: '/logout',
     method: 'post'
   })
 }
 
-export function getUserInfo(token) {
+export function getUserInfo() {
   return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
+    url: '/api/userDetails',
+    method: 'get'
+  //  params: { token }
   })
 }
-
