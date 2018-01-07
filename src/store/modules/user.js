@@ -1,4 +1,4 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import { loginByUsername, logout, getUserInfo,register} from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import server from '../../config/api.js';
 const user = {
@@ -48,9 +48,9 @@ const user = {
     LoginByUsername({ commit }, userInfo) {
 
       const username = userInfo.username.trim()
-console.log('username='+username);
+//console.log('username='+username);
       return new Promise((resolve, reject) => {
-        console.log('password'+userInfo.password+'clientid='+server.client.client_id);
+        //console.log('password'+userInfo.password+'clientid='+server.client.client_id);
 
         loginByUsername(username, userInfo.password,'password',server.client.client_id,server.client.client_secret,'*').then(response => {
 console.log('login success!');
@@ -74,9 +74,10 @@ console.log('login success!');
             reject('error')
           }
           const data = response.data
-          //commit('SET_ROLES', data.role)
+          console.log(response.data);
+          commit('SET_ROLES', data.roles)
           commit('SET_NAME', data.name)
-          //commit('SET_AVATAR', data.avatar)
+          commit('SET_AVATAR', data.avatar)
           //commit('SET_INTRODUCTION', data.introduction)
           resolve(response)
         }).catch(error => {
@@ -84,7 +85,23 @@ console.log('login success!');
         })
       })
     },
+    // 注册用户
+    Register({ commit}, userInfo) {
+      return new Promise((resolve, reject) => {
+      //  getUserInfo(state.token).then(response => {
+    const username = userInfo.username.trim();
+    const password = userInfo.password.trim();
+        register(username,password).then(response => {
+          if (!response.data) {
+            reject('error')
+          }
 
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     // 第三方验证登录
     // LoginByThirdparty({ commit, state }, code) {
     //   return new Promise((resolve, reject) => {

@@ -16,6 +16,17 @@ export function loginByUsername(username, password,grant_type,client_id,client_s
   })
 }
 
+export function register(username,password){
+  const data = {
+    username,
+    password
+  }
+  return request({
+    url:'/api/register',
+    method:'post',
+    data
+  })
+}
 export function logout() {
   return request({
     url: '/logout',

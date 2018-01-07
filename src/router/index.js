@@ -26,7 +26,8 @@ import Layout from '../views/layout/Layout'
 **/
 export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
+  { path: '/register', component: _import('login/register')},
+//  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
   { path: '/404', component: _import('errorPage/404'), hidden: true },
   { path: '/401', component: _import('errorPage/401'), hidden: true },
   {
@@ -60,57 +61,73 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  // {
-  //   path: '/permission',
-  //   component: Layout,
-  //   redirect: '/permission/index',
-  //   meta: { role: ['admin'] },
-  //   children: [{
-  //     path: 'index',
-  //     component: _import('permission/index'),
-  //     name: 'permission',
-  //     meta: {
-  //       title: 'permission',
-  //       icon: 'lock',
-  //       role: ['admin']
-  //     }
-  //   }]
-  // },
-  //
-  // {
-  //   path: '/icon',
-  //   component: Layout,
-  //   children: [{
-  //     path: 'index',
-  //     component: _import('svg-icons/index'),
-  //     name: 'icons',
-  //     meta: { title: 'icons', icon: 'icon', noCache: true }
-  //   }]
-  // },
-  //
-  // {
-  //   path: '/components',
-  //   component: Layout,
-  //   redirect: 'noredirect',
-  //   name: 'component-demo',
-  //   meta: {
-  //     title: 'components',
-  //     icon: 'component'
-  //   },
-  //   children: [
-  //     { path: 'tinymce', component: _import('components-demo/tinymce'), name: 'tinymce-demo', meta: { title: 'tinymce' }},
-  //     { path: 'markdown', component: _import('components-demo/markdown'), name: 'markdown-demo', meta: { title: 'markdown' }},
-  //     { path: 'json-editor', component: _import('components-demo/jsonEditor'), name: 'jsonEditor-demo', meta: { title: 'jsonEditor' }},
-  //     { path: 'dnd-list', component: _import('components-demo/dndList'), name: 'dndList-demo', meta: { title: 'dndList' }},
-  //     { path: 'splitpane', component: _import('components-demo/splitpane'), name: 'splitpane-demo', meta: { title: 'splitPane' }},
-  //     { path: 'avatar-upload', component: _import('components-demo/avatarUpload'), name: 'avatarUpload-demo', meta: { title: 'avatarUpload' }},
-  //     { path: 'dropzone', component: _import('components-demo/dropzone'), name: 'dropzone-demo', meta: { title: 'dropzone' }},
-  //     { path: 'sticky', component: _import('components-demo/sticky'), name: 'sticky-demo', meta: { title: 'sticky' }},
-  //     { path: 'count-to', component: _import('components-demo/countTo'), name: 'countTo-demo', meta: { title: 'countTo' }},
-  //     { path: 'mixin', component: _import('components-demo/mixin'), name: 'componentMixin-demo', meta: { title: 'componentMixin' }},
-  //     { path: 'back-to-top', component: _import('components-demo/backToTop'), name: 'backToTop-demo', meta: { title: 'backToTop' }}
-  //   ]
-  // },
+  {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/index',
+    meta: { role: ['admin'] },
+    children: [{
+      path: 'index',
+      component: _import('permission/index'),
+      name: 'permission',
+      meta: {
+        title: 'permission',
+        icon: 'lock',
+        role: ['admin']
+      }
+    }]
+  },
+
+  {
+    path: '/icon',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: _import('svg-icons/index'),
+      name: 'icons',
+      meta: { title: 'icons', icon: 'icon', noCache: true }
+    }]
+  },
+
+  {
+    path: '/components',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'component-demo',
+    meta: {
+      title: 'components',
+      icon: 'component'
+    },
+    children: [
+      { path: 'tinymce', component: _import('components-demo/tinymce'), name: 'tinymce-demo', meta: { title: 'tinymce' }},
+      { path: 'markdown', component: _import('components-demo/markdown'), name: 'markdown-demo', meta: { title: 'markdown' }},
+      { path: 'json-editor', component: _import('components-demo/jsonEditor'), name: 'jsonEditor-demo', meta: { title: 'jsonEditor' }},
+      { path: 'dnd-list', component: _import('components-demo/dndList'), name: 'dndList-demo', meta: { title: 'dndList' }},
+      { path: 'splitpane', component: _import('components-demo/splitpane'), name: 'splitpane-demo', meta: { title: 'splitPane' }},
+      { path: 'avatar-upload', component: _import('components-demo/avatarUpload'), name: 'avatarUpload-demo', meta: { title: 'avatarUpload' }},
+      { path: 'dropzone', component: _import('components-demo/dropzone'), name: 'dropzone-demo', meta: { title: 'dropzone' }},
+      { path: 'sticky', component: _import('components-demo/sticky'), name: 'sticky-demo', meta: { title: 'sticky' }},
+      { path: 'count-to', component: _import('components-demo/countTo'), name: 'countTo-demo', meta: { title: 'countTo' }},
+      { path: 'mixin', component: _import('components-demo/mixin'), name: 'componentMixin-demo', meta: { title: 'componentMixin' }},
+      { path: 'back-to-top', component: _import('components-demo/backToTop'), name: 'backToTop-demo', meta: { title: 'backToTop' }}
+    ]
+  },
+  {
+    path: '/register',
+    component: Layout,
+    redirect: '/register/index',
+    meta: { role: ['admin'] },
+    children: [{
+      path: 'index',
+      component: _import('login/register'),
+      name: 'register',
+      meta: {
+        title: 'register',
+        icon: 'lock',
+        role: ['admin']
+      }
+    }]
+  },
   //
   // {
   //   path: '/charts',
@@ -231,7 +248,7 @@ export const asyncRouterMap = [
   //   redirect: 'noredirect',
   //   children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboardDemo', meta: { title: 'clipboardDemo', icon: 'clipboard' }}]
   // },
-  // 
+  //
   // {
   //   path: '/i18n',
   //   component: Layout,

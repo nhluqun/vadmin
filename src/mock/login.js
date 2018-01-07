@@ -14,7 +14,14 @@ const userMap = {
     introduction: '我是编辑',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
-  }
+  },
+  // nhluqun: {
+  //   role: ['admin'],
+  //   token: '',
+  //   introduction: '我是管理员',
+  //   avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+  //   name: 'Admin'
+  // },
 }
 
 export default {

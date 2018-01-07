@@ -21,12 +21,21 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done() // router在hash模式下 手动改变hash 重定向回来 不会触发afterEach 暂时hack方案 ps：history模式下无问题，可删除该行！
     } else {
+//console.log('length'+store.getters.roles);
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
-          const roles = res.data.role
+console.log(res);
+          const roles = res.data.roles
+
           store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
+
             router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+
+
+//console.log({...to});
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+//next(to.path);
+//console.log('GenerateRout');
           })
         }).catch(() => {
           store.dispatch('FedLogOut').then(() => {

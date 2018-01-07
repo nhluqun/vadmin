@@ -25,6 +25,12 @@ export default {
         message: 'switch language success',
         type: 'success'
       })
+    },
+    mounted:function(){
+
+    handleSetLanguage('en');
+    handleSetLanguage('zh');
+    console.log('mounted!');
     }
   }
 }
@@ -37,5 +43,3 @@ export default {
   vertical-align: -5px;
 }
 </style>
-
-
