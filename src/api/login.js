@@ -16,10 +16,11 @@ export function loginByUsername(username, password,grant_type,client_id,client_s
   })
 }
 
-export function register(username,password){
+export function register(name,password,email){
   const data = {
-    username,
-    password
+    name,
+    password,
+    email
   }
   return request({
     url:'/api/register',
@@ -39,5 +40,13 @@ export function getUserInfo() {
     url: '/api/userDetails',
     method: 'get'
   //  params: { token }
+  })
+}
+
+export function queryUserByName(){
+  return request({
+    url:'/api/queryUserByname',
+    method:'get',
+    params:{username}
   })
 }

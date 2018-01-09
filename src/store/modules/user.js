@@ -91,14 +91,17 @@ console.log('login success!');
       //  getUserInfo(state.token).then(response => {
     const username = userInfo.username.trim();
     const password = userInfo.password.trim();
-        register(username,password).then(response => {
+    const email=userInfo.email.trim();
+        register(username,password,email).then(response => {
           if (!response.data) {
             reject('error')
           }
-
           resolve(response)
         }).catch(error => {
-          reject(error)
+          //reject(error)
+console.log(error);
+reject(error)
+
         })
       })
     },
