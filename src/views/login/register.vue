@@ -51,7 +51,8 @@ export default {
             regForm: {
                 username: '',
                 password: '',
-                checkPassword: ''
+                checkPassword: '',
+                email:''
             },
             rules: {
                 username: [
@@ -85,7 +86,7 @@ export default {
                   this.$store.dispatch('Register', this.regForm)
                   //    api.userRegister(this.regForm)
                         .then(({ data }) => {
-console.log(data);
+console.log('register'+data.success);
                             if(data.success){
                                 this.$message({
                                     type: 'success',
@@ -93,11 +94,12 @@ console.log(data);
                                 });
                                 this.$router.push({path:'/login'})
                             }else{
+                            console.log('用户名已经存在');
                                 this.$message({
                                     type: 'info',
                                     message: '用户名已经存在'
                                 });
-
+console.log(data.response.data);
                             }
                         }
 
