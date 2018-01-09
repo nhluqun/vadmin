@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-form :model="regForm" :rules="rules" label-width="100px" ref="regForm">
-            <el-form-item label="用户名" prop="username">
-                <el-input v-model="regForm.username"></el-input>
+            <el-form-item label="用户名" prop="name">
+                <el-input v-model="regForm.name"></el-input>
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
                 <el-input v-model="regForm.email"></el-input>
@@ -47,12 +47,13 @@ export default {
 
         return {
             regForm: {
-                username: '',
+                name: '',
                 password: '',
+                email:'',
                 checkPassword: ''
             },
             rules: {
-                username: [
+                name: [
                     { required: true, message: '用户名不能少', trigger: 'blur'},
                     { min: 6, max: 16, message: '用户名在6到16位之间', trigger: 'blur'}
                 ],
@@ -78,15 +79,17 @@ export default {
         submitForm(formName){
             this.$refs[formName].validate((valid) => {
                 if(valid){ //验证通过
-                console.log('valid!')
+                //console.log('valid!')
                   this.$store.dispatch('Register', this.regForm)
                   //    api.userRegister(this.regForm)
                         .then(({ data }) => {
+                        console.log(data);
                             if(data.success){
                                 this.$message({
                                     type: 'success',
                                     message: '注册成功'
                                 });
+                    this.$router.push({ path: '/login' })
                             }else{
                                 this.$message({
                                     type: 'info',
@@ -95,6 +98,7 @@ export default {
                             }
                         });
                 }else{ //验证不通过
+                console.log('验证不通过');
                     return false;
                 }
             });

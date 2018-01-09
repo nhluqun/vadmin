@@ -23,7 +23,8 @@
       </el-form-item>
 
       <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
-      <router-link :to="{path:'/404'}">注册</router-link>
+        <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleRegister">register</el-button>
+      <router-link :to="{path:'dashboard'}">注册</router-link>
 
       <div class="tips">
         <span>{{$t('login.username')}} : admin</span>
@@ -110,6 +111,10 @@ export default {
           return false
         }
       })
+    },
+    handleRegister(){
+    console.log('come in');
+    this.$router.push({path:'/register'});
     },
     afterQRScan() {
       // const hash = window.location.hash.slice(1)

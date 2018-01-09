@@ -19,6 +19,7 @@ import './permission' // permission control
 
 import * as filters from './filters' // global filters
 
+
 Vue.use(Element, {
   size: 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
