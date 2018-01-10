@@ -42,3 +42,11 @@ export function getUserInfo() {
   //  params: { token }
   })
 }
+
+export function queryUserByName(){
+  return request({
+    url:'/api/queryUserByname',
+    method:'get',
+    params:{username}
+  })
+}
