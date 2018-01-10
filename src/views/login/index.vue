@@ -23,23 +23,8 @@
       </el-form-item>
 
       <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
-<<<<<<< HEAD
-        <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleRegister">register</el-button>
-      <router-link :to="{path:'dashboard'}">注册</router-link>
-
-      <div class="tips">
-        <span>{{$t('login.username')}} : admin</span>
-        <span>{{$t('login.password')}} : {{$t('login.any')}}</span>
-      </div>
-      <div class="tips">
-        <span style="margin-right:18px;">{{$t('login.username')}} : editor</span>
-        <span>{{$t('login.password')}} : {{$t('login.any')}}</span>
-      </div>
-
-=======
 <el-form-item>
       <router-link :to="{path:'/register'}" style="color:white">没有帐号？注册</router-link>
->>>>>>> temp
       <el-button class="thirdparty-button" type="primary" @click="showDialog=true">{{$t('login.thirdparty')}}</el-button>
 </el-form-item>
     </el-form>

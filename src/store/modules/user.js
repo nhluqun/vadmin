@@ -92,11 +92,9 @@ const user = {
     const name = userInfo.name.trim();
     const password = userInfo.password.trim();
     const email=userInfo.email.trim();
-<<<<<<< HEAD
+
         register(name,password,email).then(response => {
-=======
-        register(username,password,email).then(response => {
->>>>>>> temp
+
           if (!response.data) {
             reject('error')
           }

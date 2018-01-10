@@ -1,15 +1,9 @@
 <template>
-<<<<<<< HEAD
-    <div>
-        <el-form :model="regForm" :rules="rules" label-width="100px" ref="regForm">
-            <el-form-item label="用户名" prop="name">
-                <el-input v-model="regForm.name"></el-input>
-=======
+
     <div class="login-container">
         <el-form class="login-form" :model="regForm" :rules="rules" label-width="100px" ref="regForm">
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="regForm.username"></el-input>
->>>>>>> temp
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
                 <el-input v-model="regForm.email"></el-input>
@@ -29,9 +23,10 @@
 </template>
 
 <script>
-
+import api from '../../api/apiaxios.js';
 
 export default {
+
     data(){
 
         //自定义验证规则
@@ -58,13 +53,8 @@ export default {
             regForm: {
                 name: '',
                 password: '',
-<<<<<<< HEAD
                 email:'',
                 checkPassword: ''
-=======
-                checkPassword: '',
-                email:''
->>>>>>> temp
             },
             rules: {
                 name: [
@@ -88,42 +78,50 @@ export default {
         }
     },
     methods: {
+    async register() {
+    const { data: { code, data }} = await api.post('/api/register', this.regForm)
+    if (code === 200) {
+        console.log(data)
+    }
+    else
+    {
+    console.log(code)
+    console.log(data)
+console.log(message)
+    }
+  },
         resetForm(formName){
             this.$refs[formName].resetFields();
         },
         submitForm(formName){
             this.$refs[formName].validate((valid) => {
                 if(valid){ //验证通过
-                //console.log('valid!')
-                  this.$store.dispatch('Register', this.regForm)
+
+            /* this.$store.dispatch('Register', this.regForm)
                   //    api.userRegister(this.regForm)
                         .then(({ data }) => {
-<<<<<<< HEAD
-                        console.log(data);
-=======
-console.log('register'+data.success);
->>>>>>> temp
+
+//                        console.log(data);
+//console.log('register'+data.success);
                             if(data.success){
                                 this.$message({
                                     type: 'success',
                                     message: '注册成功'
                                 });
-<<<<<<< HEAD
-                    this.$router.push({ path: '/login' })
-=======
-                                this.$router.push({path:'/login'})
->>>>>>> temp
+                  this.$router.push({ path: '/login' })
+
                             }else{
-                            console.log('用户名已经存在');
+
                                 this.$message({
                                     type: 'info',
                                     message: '用户名已经存在'
                                 });
-console.log(data.response.data);
+
                             }
                         }
 
-                        );
+                        );   */
+                        this.register();
                 }else{ //验证不通过
                 console.log('验证不通过');
                     return false;
