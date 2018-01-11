@@ -2,12 +2,18 @@
 
     <div class="login-container">
         <el-form class="login-form" :model="regForm" :rules="rules" label-width="100px" ref="regForm">
-            <el-form-item label="用户名" prop="username">
-                <el-input v-model="regForm.username"></el-input>
+            <el-form-item label="用户名" prop="name">
+                <el-input v-model="regForm.name"></el-input>
             </el-form-item>
+            <formerror v-if="errors.name" :errors="errors">
+                @{{errors.name.join(',')}}
+              </formerror>
             <el-form-item label="邮箱" prop="email">
                 <el-input v-model="regForm.email"></el-input>
             </el-form-item>
+            <formerror v-if="errors.email" :errors="errors">
+                @{{errors.email.join(',')}}
+              </formerror>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="regForm.password" type="password"></el-input>
             </el-form-item>
@@ -50,6 +56,7 @@ export default {
         };
 
         return {
+        errors:[],
             regForm: {
                 name: '',
                 password: '',
@@ -79,6 +86,7 @@ export default {
     },
     methods: {
     async register() {
+    let self = this;
     const { data: { code, data }} = await api.post('/api/register', this.regForm)
     if (code === 200) {
         console.log(data)
@@ -87,7 +95,8 @@ export default {
     {
     console.log(code)
     console.log(data)
-console.log(message)
+//console.log(message)
+self.errors = data.response.data.errors;
     }
   },
         resetForm(formName){
