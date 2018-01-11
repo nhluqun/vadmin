@@ -12,7 +12,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(config => {
   // Do something before request is sent
-  console.log('token='+store.getters.token);
+  //console.log('token='+store.getters.token);
   if (store.getters.token) {
     config.headers['Authorization'] = 'Bearer '+getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
   }
@@ -227,9 +227,16 @@ service.interceptors.response.use((response) => {
         err.message = '请求超时'
         break
       case 422:
-        err.message='数据格式错误'
-        console.log(err.response.data)
+        err.message='输入数据错误'
+        return {
+            data: {
+                code: -422,
+                //message: response.statusText,
+        //        message:err.response.data.message,
+                data: err.response.data.errors,
+            }
          //break
+       }
       case 500:
         err.message = '服务器内部错误'
         break

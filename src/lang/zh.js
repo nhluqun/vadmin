@@ -61,6 +61,9 @@ export default {
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
   },
+  register:{
+    title:'用户注册'
+  },
   documentation: {
     documentation: '文档',
     github: 'Github 地址'

@@ -1,8 +1,18 @@
 import axios from 'axios'
 import qs from 'qs'
 import NProgress from 'nprogress'
+import { Message } from 'element-ui'
+import store from '@/store'
+import { getToken } from '@/utils/auth'
 
-axios.interceptors.request.use(config => {
+const ser = axios.create({
+  baseURL: process.env.BASE_API, // api的base_url
+  timeout: 5000 // request timeout
+})
+ser.interceptors.request.use(config => {
+  if (store.getters.token) {
+    config.headers['Authorization'] = 'Bearer '+getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+  }
     NProgress.start()
     return config
 }, error => {
@@ -10,7 +20,7 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error)
 })
 // 这里我们把错误信息扶正, 后面就不需要写 catch 了// 这里我们把错误信息扶正, 后面就不需要写 catch 了
-axios.interceptors.response.use(
+ser.interceptors.response.use(
   response => response,
   error => Promise.resolve(error.response))
 
@@ -27,7 +37,7 @@ console.log(response)
         data: {
             code: -404,
             //message: response.statusText,
-            message:response.message,
+            message:response.data.message,
             data: response.data.errors,
 
         }
@@ -44,7 +54,7 @@ function checkCode(res) {
 
 export default {
     post(url, data) {
-        return axios({
+        return ser({
             method: 'post',
             url,
             data: qs.stringify(data),
@@ -56,7 +66,7 @@ export default {
         }).then(checkStatus).then(checkCode)
     },
     get(url, params) {
-        return axios({
+        return ser({
             method: 'get',
             url,
             params,
@@ -67,3 +77,4 @@ export default {
         }).then(checkStatus).then(checkCode)
     }
 }
+export default ser

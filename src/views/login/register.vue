@@ -1,24 +1,33 @@
 <template>
 
     <div class="login-container">
+
         <el-form class="login-form" :model="regForm" :rules="rules" label-width="100px" ref="regForm">
+        <div class="title-container">
+          <h3 class="title">{{$t('register.title')}}</h3>
+
+        </div>
+
             <el-form-item label="用户名" prop="name">
-                <el-input v-model="regForm.name"></el-input>
+                <el-input v-model="regForm.name" autoComplete="on" placeholder="username"></el-input>
             </el-form-item>
-            <formerror v-if="errors.name" :errors="errors">
-                @{{errors.name.join(',')}}
+            <formerror  v-if="errors.name" :errors="errors">
+                {{errors.name.join(',')}}
               </formerror>
             <el-form-item label="邮箱" prop="email">
-                <el-input v-model="regForm.email"></el-input>
+                <el-input v-model="regForm.email" autoComplete="on" placeholder="email"></el-input>
             </el-form-item>
             <formerror v-if="errors.email" :errors="errors">
-                @{{errors.email.join(',')}}
+                {{errors.email.join(',')}}
               </formerror>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="regForm.password" type="password"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码" prop="checkPassword">
-                <el-input v-model="regForm.checkPassword" type="password"></el-input>
+            <formerror v-if="errors.password" :errors="errors">
+                {{errors.password.join(',')}}
+              </formerror>
+            <el-form-item label="确认密码" prop="password_confirmation">
+                <el-input v-model="regForm.password_confirmation" type="password"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('regForm')">注册</el-button>
@@ -29,8 +38,9 @@
 </template>
 
 <script>
-import api from '../../api/apiaxios.js';
-
+//import api from '../../api/apiaxios.js';
+import api from '../../utils/request';
+import formerror from '../../components/FormError.vue'
 export default {
 
     data(){
@@ -61,7 +71,7 @@ export default {
                 name: '',
                 password: '',
                 email:'',
-                checkPassword: ''
+                password_confirmation: ''
             },
             rules: {
                 name: [
@@ -77,7 +87,7 @@ export default {
                     { required: true, message: '请输入密码', trigger: 'blur'},
                     { validator: validatePass1, trigger: 'blur'}
                 ],
-                checkPassword: [
+                password_confirmation: [
                     { required: true, message: '请再次输入密码', trigger: 'blur'},
                     { validator: validatePass2, trigger: 'blur'}
                 ]
@@ -87,7 +97,7 @@ export default {
     methods: {
     async register() {
     let self = this;
-    const { data: { code, data }} = await api.post('/api/register', this.regForm)
+    const { data: { code, data }} = await api.post('/api/Aregister', this.regForm)
     if (code === 200) {
         console.log(data)
     }
@@ -96,7 +106,7 @@ export default {
     console.log(code)
     console.log(data)
 //console.log(message)
-self.errors = data.response.data.errors;
+self.errors = data;
     }
   },
         resetForm(formName){
@@ -137,7 +147,8 @@ self.errors = data.response.data.errors;
                 }
             });
         }
-    }
+    },
+      components: { formerror }
 }
 </script>
 
@@ -171,6 +182,8 @@ $light_gray:#eee;
     border-radius: 5px;
     color: #454545;
   }
+
+
 }
 </style>
 

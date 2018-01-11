@@ -8,7 +8,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '../views/layout/Layout'
-import formerror from '../components/FromError'
+
 /** note: submenu only apppear when children.length>=1
 *   detail see  https://panjiachen.github.io/vue-element-admin-site/#/router-and-nav?id=sidebar
 **/
@@ -26,7 +26,7 @@ import formerror from '../components/FromError'
 **/
 export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '/register', component:{ _import('login/register'),formerror},
+  { path: '/register', component: _import('login/register')},
 //  { path: '/register', component: register},
 //  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
   { path: '/404', component: _import('errorPage/404'), hidden: true },
