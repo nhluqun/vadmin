@@ -38,8 +38,8 @@
 </template>
 
 <script>
-//import api from '../../api/apiaxios.js';
-import api from '../../utils/request';
+import api from '../../api/apiaxios.js';
+//import api from '../../utils/request';
 import formerror from '../../components/FormError.vue'
 export default {
 
@@ -97,31 +97,32 @@ export default {
     methods: {
     async register() {
     let self = this;
-    const { data: { code, data }} = await api.post('/api/Aregister', this.regForm)
-    if (code === 200) {
-        console.log(data)
+    //const { res: { code, data }} = await api.post('/api/Aregister', this.regForm)
+    const  res = await api.post('/api/Aregister', this.regForm)
+    if (res.status === 200) {
+        console.log(res);
+          this.$router.push({ path: '/login' })
     }
     else
     {
-    console.log(code)
-    console.log(data)
-//console.log(message)
-self.errors = data;
+  console.log(res)
+self.errors = res.data.errors;
     }
   },
         resetForm(formName){
             this.$refs[formName].resetFields();
         },
         submitForm(formName){
+        let self = this;
             this.$refs[formName].validate((valid) => {
                 if(valid){ //验证通过
 
-            /* this.$store.dispatch('Register', this.regForm)
-                  //    api.userRegister(this.regForm)
+      /*         this.$store.dispatch('Register', this.regForm)
+              //    api.userRegister(this.regForm)
                         .then(({ data }) => {
 
-//                        console.log(data);
-//console.log('register'+data.success);
+            //          console.log(data);
+console.log('register'+data.success);
                             if(data.success){
                                 this.$message({
                                     type: 'success',
@@ -130,16 +131,18 @@ self.errors = data;
                   this.$router.push({ path: '/login' })
 
                             }else{
-
+                            message
                                 this.$message({
                                     type: 'info',
                                     message: '用户名已经存在'
                                 });
-
+console.log('registervue')
+console.log(data);
+self.errors=data.data.errors;
                             }
                         }
 
-                        );   */
+                        );  */
                         this.register();
                 }else{ //验证不通过
                 console.log('验证不通过');

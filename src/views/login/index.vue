@@ -91,6 +91,7 @@ export default {
         console.log('login methos');
           this.loading = true
           this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+console.log('login in')
             this.loading = false
             this.$router.push({ path: '/' })
           }).catch(() => {

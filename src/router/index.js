@@ -114,20 +114,31 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/register',
+    path: '/dilixzts',
     component: Layout,
-    redirect: '/register/index',
+    redirect: 'noredirect',
     meta: { role: ['admin'] },
     children: [{
-      path: 'index',
-      component: _import('login/register'),
-      name: 'register',
+      path: 'List',
+      component: _import('dilixzts/List'),
+      name: 'dilixztsList',
       meta: {
-        title: 'register',
+        title: 'List',
         icon: 'lock',
         role: ['admin']
       }
-    }]
+    },
+    {
+      path: 'edit/:id',
+      component: _import('dilixzts/Edit'),
+      name: 'dilixztsEdit',
+      meta: {
+        title: 'eidt',
+        icon: 'lock',
+        role: ['admin']
+      }
+    }
+  ]
   },
   //
   // {

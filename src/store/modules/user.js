@@ -48,12 +48,12 @@ const user = {
     LoginByUsername({ commit }, userInfo) {
 
       const username = userInfo.username.trim()
-//console.log('username='+username);
+console.log('username='+username);
       return new Promise((resolve, reject) => {
-        //console.log('password'+userInfo.password+'clientid='+server.client.client_id);
+        console.log('password'+userInfo.password+'clientid='+server.client.client_id);
 
         loginByUsername(username, userInfo.password,'password',server.client.client_id,server.client.client_secret,'*').then(response => {
-//console.log('login success!');
+console.log('login success!');
           const data = response.data
           commit('SET_TOKEN', data.access_token)//把token改成access_token
           setToken(response.data.access_token);
@@ -92,8 +92,9 @@ const user = {
     const name = userInfo.name.trim();
     const password = userInfo.password.trim();
     const email=userInfo.email.trim();
+    const password_confirmation=userInfo.password_confirmation.trim();
 
-        register(name,password,email).then(response => {
+        register(name,password,email,password_confirmation).then(response => {
 
           if (!response.data) {
             reject('error')
@@ -101,8 +102,9 @@ const user = {
           resolve(response)
         }).catch(error => {
           //reject(error)
-//console.log(error.response.data);
+console.log(error.response.data);
 //reject(error)
+        return error;
 
         })
       })

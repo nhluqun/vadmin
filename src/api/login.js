@@ -16,14 +16,15 @@ export function loginByUsername(username, password,grant_type,client_id,client_s
   })
 }
 
-export function register(name,password,email){
+export function register(name,password,email,password_confirmation){
   const data = {
     name,
     password,
-    email
+    email,
+    password_confirmation
   }
   return request({
-    url:'/api/register',
+    url:'/api/Aregister',
     method:'post',
     data
   })
