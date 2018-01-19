@@ -14,7 +14,25 @@ placeholder="请输入题目内容"
 v-model="dilixztForm.xzt">
 </el-input>
     </el-form-item>
+  
+    <el-upload
+      class="upload-demo"
+      action="/posts/"
+      ref="upload"
+      :on-preview="handlePreview"
+      :on-remove="handleRemove"
+      :before-remove="beforeRemove"
+      :beforeUpload="beforeAvatarUpload"
+      :auto-upload="false"
+      multiple
+      :limit="3"
+      :on-exceed="handleExceed"
+      :file-list="fileList">
+      <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
 
+      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+    </el-upload>
             <el-form-item label="图1" prop="tu1url">
                 <el-input v-model="dilixztForm.tu1url" autoComplete="on" placeholder="tu1url"></el-input>
             </el-form-item>
@@ -50,6 +68,8 @@ export default {
     data(){
 
         return {
+        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+
         errors:[],
             dilixztForm: {
               xzt: '',
@@ -97,8 +117,47 @@ self.errors = res.data.errors;
                     return false;
                 }
             });
-        }
+        },
+        handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+      handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      beforeRemove(file, fileList) {
+        return this.$confirm(`确定移除 ${ file.name }？`);
+      },
+      beforeAvatarUpload(file) {
+                var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
+                const extension = testmsg === 'png'
+                const extension2 = testmsg === 'jpg'
+                //const isLt2M = file.size / 1024 / 1024 < 10
+                const isLr500k=file.size /1024 /1024 >0.5;
+                console.log(file.size);
+                  console.log(isLr500k);
+                if(!extension && !extension2) {
+                    this.$message({
+                        message: '上传文件只能是 png、jpg格式!',
+                        type: 'warning'
+                    });
+                }
+                if(isLr500k) {
+                    this.$message({
+                        message: '上传文件大小不能超过 500kb!',
+                        type: 'warning'
+                    });
+                }
+                console.log(extension || extension2 && isLr500k)
+                return extension || extension2 && isLr500k
+            },
+            submitUpload() {
+       this.$refs.upload.submit();
+     },
     },
+
       components: { formerror }
 }
 </script>
