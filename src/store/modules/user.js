@@ -74,7 +74,7 @@ console.log('login success!');
             reject('error')
           }
           const data = response.data
-      //    console.log(response.data);
+          console.log(response.data);
           commit('SET_ROLES', data.roles)
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)

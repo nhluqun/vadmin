@@ -95,6 +95,9 @@ export default {
         }
     },
     methods: {
+    mounted(){
+  //  this.regForm.name='sdlkfjlkasdf'
+    },
     async register() {
     let self = this;
     //const { res: { code, data }} = await api.post('/api/Aregister', this.regForm)

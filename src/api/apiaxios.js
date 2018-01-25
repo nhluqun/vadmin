@@ -29,14 +29,15 @@ ser.interceptors.response.use(response => response,
 
 
 function checkStatus(response) {
+//  console.log(response);
     NProgress.done()
     if (response.status === 200 || response.status === 304) {
       //  return response
-    //  console.log(response);
-    Message({
-                message: response.statusText,
-                type: 'success'
-              });
+    //   console.log(response);
+    // Message({
+    //             message: response.statusText,
+    //             type: 'success'
+    //           });
         // return {
         //     res: {
         //         code: 200,
@@ -157,21 +158,37 @@ export default {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+
             }
       //  }).then(checkStatus).then(checkCode)
         }).then(checkStatus)
     },
     //post成功之后没有code,
-    get(url, params) {
+    get(url, data) {
         return ser({
             method: 'get',
             url,
-            params,
+            data: qs.stringify(data),
+            timeout: 30000,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+
+            }
+        //}).then(checkStatus).then(checkCode)
+        }).then(checkStatus)
+    },
+    delete(url,data) {
+        return ser.delete(
+           url,
+           {data:data,
             timeout: 30000,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
-        //}).then(checkStatus).then(checkCode)
-        }).then(checkStatus)
+          }).then(checkStatus)
+    },
+    update(url, data) {
+        return ser.put(url,data).then(checkStatus)
     }
-}
+    }

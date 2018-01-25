@@ -115,8 +115,10 @@ export const asyncRouterMap = [
   },
   {
     path: '/dilixzts',
+    name:'选择题列表',
     component: Layout,
     redirect: 'noredirect',
+      icon: 'lock',
     meta: { role: ['admin'] },
     children: [{
       path: 'List',
@@ -124,20 +126,21 @@ export const asyncRouterMap = [
       name: 'dilixztsList',
       meta: {
         title: 'List',
-        icon: 'lock',
+
         role: ['admin']
       }
     },
     {
-      path: 'edit/:id',
-      component: _import('dilixzts/Edit'),
-      name: 'dilixztsEdit',
+      path: 'EditOrCreate/:id',
+      component: _import('dilixzts/EditOrCreate'),
+      name: 'dilixztsEditOrCreate',
       meta: {
-        title: 'eidt',
-        icon: 'lock',
+        title: 'EditOrCreate',
+
         role: ['admin']
       }
     }
+
   ]
   },
   //
