@@ -13,8 +13,10 @@ const ser = axios.create({
 ser.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['Authorization'] = 'Bearer '+getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+    config.headers['Cookie']='XDEBUG_SESSION=PHPSTORM'
   }
     NProgress.start()
+    console.log(ser.interceptors.request);
     return config
 }, error => {
 

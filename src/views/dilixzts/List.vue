@@ -171,7 +171,7 @@ export default {
       loadData: function(criteria, page, pagesize){
       let self=this;
           //    api.get(this.url,{keyword:criteria, page:this.currentPage, pagesize:this.pagesize}).then(function(res){
-      let data={criteria:this.criteria,page:this.currentPage, pagesize:this.pagesize}
+      let data={params:{criteria:this.criteria,page:this.currentPage, pagesize:this.pagesize}}
               api.get(this.url,data).then(function(res)
               {
                     //   console.log('loadData')
@@ -227,9 +227,7 @@ export default {
             message: '已取消删除'
           });
         });
-
-
-                      },
+        },
 
                       //搜索
                       search: function(){
