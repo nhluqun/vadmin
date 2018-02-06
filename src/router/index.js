@@ -115,11 +115,14 @@ export const asyncRouterMap = [
   },
   {
     path: '/dilixzts',
-    name:'选择题列表',
+    name:'xztlist',
     component: Layout,
     redirect: 'noredirect',
-      icon: 'lock',
-    meta: { role: ['admin'] },
+      meta: {
+      title:'xztlist',
+        icon: 'lock',
+        role: ['admin']
+      },
     children: [{
       path: 'List',
       component: _import('dilixzts/List'),
@@ -139,8 +142,16 @@ export const asyncRouterMap = [
 
         role: ['admin']
       }
-    }
-
+    },
+        {
+            path: 'ketang',
+            component: _import('dilixzts/Ketang'),
+            name: 'ketang',
+            meta: {
+                title: 'ketang',
+                role: ['admin']
+            }
+        }
   ]
   },
   //

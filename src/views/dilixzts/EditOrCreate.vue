@@ -22,6 +22,22 @@ v-model="dilixztForm.xzt">
         </el-option>
       </el-select>
     </el-form-item>
+            <el-form-item label="题干" prop="tg">
+                <el-input v-model="dilixztForm.tg" autoComplete="on" placeholder="tg"></el-input>
+            </el-form-item>
+            <el-form-item label="A选项" prop="a">
+                <el-input v-model="dilixztForm.a" autoComplete="on" placeholder="a"></el-input>
+            </el-form-item>
+            <el-form-item label="B选项" prop="b">
+                <el-input v-model="dilixztForm.b" autoComplete="on" placeholder="b"></el-input>
+            </el-form-item>
+            <el-form-item label="C选项" prop="c">
+                <el-input v-model="dilixztForm.c" autoComplete="on" placeholder="c"></el-input>
+            </el-form-item>
+            <el-form-item label="D选项" prop="d">
+                <el-input v-model="dilixztForm.d" autoComplete="on" placeholder="d"></el-input>
+            </el-form-item>
+
     <el-form-item label="课时" prop="keshiid">
     <el-select v-model="dilixztForm.keshiid" filterable placeholder="请选择课时">
         <el-option
@@ -36,7 +52,7 @@ v-model="dilixztForm.xzt">
       <el-col :span="12"><div class="grid-content bg-purple">
       <el-upload
         class="upload-demo"
-        action="http://tk55.com/api/upfile"
+        action="http://192.168.10.10/api/upfile"
         ref="upload"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
@@ -57,7 +73,7 @@ v-model="dilixztForm.xzt">
       </el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://tk55.com/api/upfile"
+        action="http://192.168.10.10/api/upfile"
         ref="upload2"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
@@ -84,11 +100,10 @@ v-model="dilixztForm.xzt">
     </el-row>
 
 <div>
-  <Tinymce :height="300" v-model="dilixztForm.xzttext"></Tinymce>
+<!--  <Tinymce :height="300" v-model="dilixztForm.xzttext"></Tinymce>-->
 </div>
-<div class="editor-content" v-html="dilixztForm.xzttext"></div>
-
-            <el-form-item>
+            <p >{{dilixztForm.xzttext}}</p>
+     <el-form-item>
                 <el-button type="primary" @click="submitForm('dilixztForm')">{{mode}}</el-button>
                 <el-button @click="resetForm('dilixztForm')" >重置</el-button>
             </el-form-item>
@@ -152,7 +167,12 @@ components: { Tinymce,formerror },
               tu2url:'',
               da:'',
               keshiid:'',
-              xzttext:''
+              xzttext:'',
+                tg:'',
+                a:'',
+                b:'',
+                c:'',
+                d:''
             },
 
             rules: {
@@ -177,7 +197,7 @@ components: { Tinymce,formerror },
         if (res.status === 200) {
   //  console.log(res)
     //    console.log(res);
-        this.$router.push({ path: '/dilixzts/List' })
+     //   this.$router.push({ path: '/dilixzts/List' })
     }
     else
     {

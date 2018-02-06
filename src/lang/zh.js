@@ -43,7 +43,8 @@ export default {
     exportZip: 'zip',
     theme: '换肤',
     clipboardDemo: 'clipboard',
-    i18n: '国际化'
+    i18n: '国际化',
+      xztlist:'选择题列表'
   },
   navbar: {
     logOut: '退出登录',

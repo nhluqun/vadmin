@@ -1,20 +1,5 @@
 <template>
 <div>
-<el-row :gutter="20">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-    <el-input v-model="form.gjzname"  ></el-input>
-   </div>
-</el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-    <el-button
-     size="mini"
-      @click="search()">模糊查询</el-button>
-      </div>
-  </el-col>
-
-  </el-row>
   <el-row>
   <el-button type="text" @click="dialogFormVisible = true">选择题查询</el-button>
    <el-dialog title="查询条件" :visible.sync="dialogFormVisible">
@@ -47,7 +32,7 @@
     size="mini"
     @click="create()">新建选择题</el-button>
   <el-table
-    :data="tableData"
+    :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
     style="width: 100%">
     <el-table-column
           label="ID"
@@ -98,6 +83,7 @@
   </el-table>
 <div align="center">
  <el-pagination
+         background
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
@@ -131,10 +117,12 @@ export default {
              //多选数组
                multipleSelection: [],
                //请求的URL
-               url:'api/dilixzts',
+               url:'api/dilixzts/search',
                //搜索条件
-               criteria: [],
-               gjz:[],keshi:[],//关健字，课时
+               criteria: '',
+               gjz:'',
+               keshi:'',
+               //关健字，课时
                //下拉菜单选项
                select: '',
                //默认每页数据量
@@ -154,30 +142,39 @@ export default {
     },
     methods: {
       cxArray(){
-       let arr=new Array();
-        if(this.form.gjzchecked){
-            arr['gjz']=this.form.gjzname;
+         if(this.form.gjzchecked){
+            this.gjz=this.form.gjzname;
         }
+          else
+         {
+             this.gjz='';
+         }
         if(this.form.keshichecked){
-          arr['keshiid']=this.form.keshiid;
+          this.keshi=this.form.keshiid;
         }
-        this.dialogFormVisible = false;
-        this.criteria=arr;
-        console.log(this.criteria);
-        this.loadData(this.criteria, this.page, this.pagesize);
+          else{
+            this.keshi='';
+        }
+          this.dialogFormVisible = false;
+          this.loadData();
 
       },
       //从服务器读取数据
-      loadData: function(criteria, page, pagesize){
+      loadData: function(){
       let self=this;
           //    api.get(this.url,{keyword:criteria, page:this.currentPage, pagesize:this.pagesize}).then(function(res){
-      let data={params:{criteria:this.criteria,page:this.currentPage, pagesize:this.pagesize}}
-              api.get(this.url,data).then(function(res)
+     // let data={params:{criteria:this.criteria,page:this.currentPage, pagesize:this.pagesize}}
+           let data={
+               gjz:this.gjz,
+               keshi:this.keshi,
+               pagesize:this.pagesize
+           };
+              api.post(this.url,data).then(function(res)
               {
                     //   console.log('loadData')
-                      //     console.log(res)
-                              self.tableData = res.data.pageDilixzts.data;
-                           self.totalCount=res.data.pageDilixzts.total;
+                      //    console.log(res)
+                          self.tableData = res.data.pageDilixzts;
+                          self.totalCount=res.data.pageDilixzts.length;
                           },function(){
                               console.log('failed');
                           });
@@ -229,11 +226,7 @@ export default {
         });
         },
 
-                      //搜索
-                      search: function(){
-                          this.loadData(this.criteria, this.currentPage, this.pagesize);
-                      },
-                      create:function(){
+                     create:function(){
                           this.$router.push({name:'dilixztsEditOrCreate'})
                       },
                       //添加
@@ -264,7 +257,7 @@ export default {
                               array.push(item.id);
                           })
                           this.$http.post('newstu/delete',{"array":array},{emulateJSON: true}).then(function(res){
-                              this.loadData(this.criteria, this.currentPage, this.pagesize);
+                              this.loadData();
                           },function(){
                               console.log('failed');
                           });
@@ -280,23 +273,23 @@ export default {
 
                       //每页显示数据量变更
                       handleSizeChange: function(val) {
-                    //  console.log('sizechange');
+                  //  console.log('sizechange');
                           this.pagesize = val;
-                          this.loadData(this.criteria, this.currentPage, this.pagesize);
+
                       },
 
                       //页码变更
                       handleCurrentChange: function(val) {
-                  //    console.log('val'+val)
+                    //  console.log('val'+val)
                           this.currentPage = val;
-                          this.loadData(this.criteria, this.currentPage, this.pagesize);
+
                       },
 
                   },
               async  mounted(){
                     let self = this;
-                self.loadData(this.criteria, this.currentPage, this.pagesize);
-                //  console.log('mounted');
+                self.loadData();
+
 
                 //提取课时信息
                 const res= await api.get('/api/getKeshis/')
