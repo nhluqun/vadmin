@@ -102,7 +102,7 @@
                 students:[],
                 dialogFormVisible: false,
                 xzts: [],
-                baseUrl:'http://192.168.10.10/',
+                baseUrl:'http://127.0.0.1:8000/',
                 //请求的URL
                 url:'api/dilixzts/search',
                 //搜索条件
