@@ -15,7 +15,21 @@ export function loginByUsername(username, password,grant_type,client_id,client_s
     data
   })
 }
-
+export function loginByName(username,password,grant_type,client_id,client_secret,scope){
+  const data = {
+    username,
+    password,
+    grant_type,
+    client_id,
+    client_secret,
+    scope
+  }
+  return request({
+    url: '/api/login',
+    method: 'post',
+    data
+  })
+}
 export function register(name,password,email,password_confirmation){
   const data = {
     name,
@@ -44,10 +58,12 @@ export function getUserInfo() {
   })
 }
 
-export function queryUserByName(){
+export function queryUserByName(name){
+
   return request({
     url:'/api/queryUserByname',
     method:'get',
-    params:{username}
+    params:{name}
+
   })
 }

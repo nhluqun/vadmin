@@ -104,8 +104,9 @@ console.log('login in')
       })
     },
     handleRegister(){
-    console.log('come in');
-    this.$router.push({path:'/api/aregister'});
+   // console.log('come in');
+  //  this.$router.push({path:'/api/aregister'});
+
     },
     afterQRScan() {
       // const hash = window.location.hash.slice(1)

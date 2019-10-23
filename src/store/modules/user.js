@@ -1,4 +1,4 @@
-import { loginByUsername, logout, getUserInfo,register} from '@/api/login'
+import { loginByUsername, logout, getUserInfo,register,queryUserByName} from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import server from '../../config/api.js';
 const user = {
@@ -122,6 +122,7 @@ console.log(error.response.data);
     //     })
     //   })
     // },
+//查询有没有这个用户
 
     // 登出
     LogOut({ commit, state }) {

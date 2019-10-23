@@ -52,7 +52,7 @@ v-model="dilixztForm.xzt">
       <el-col :span="12"><div class="grid-content bg-purple">
       <el-upload
         class="upload-demo"
-        action="http://127.0.0.1:8000/api/upfile"
+        action="http://tk55.com/api/upfile"
         ref="upload"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
@@ -73,7 +73,7 @@ v-model="dilixztForm.xzt">
       </el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://127.0.0.1:8000/api/upfile"
+        action="http://tk55.com/api/upfile"
         ref="upload2"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
@@ -126,7 +126,7 @@ components: { Tinymce,formerror },
         mode:'新建',
       //  action:"http://localhost:8000/api/upfile",
         fileList: [],
-       imgBaseUrl:'http://127.0.0.1:8000/images/',
+       imgBaseUrl:'http://tk55.com/images/',
         errors:[],ksoptions:[],
         options: [{
           value: 'A',

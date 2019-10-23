@@ -4,13 +4,13 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 // create an axios instance
-const service = axios.create({
+const request = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
   timeout: 5000 // request timeout
 })
 
 // request interceptor
-service.interceptors.request.use(config => {
+request.interceptors.request.use(config => {
   // Do something before request is sent
   //console.log('token='+store.getters.token);
   if (store.getters.token) {
@@ -24,7 +24,7 @@ service.interceptors.request.use(config => {
 })
 
 // respone interceptor
-service.interceptors.response.use(
+request.interceptors.response.use(
   response => response,
   /**
   * 下面的注释为通过response自定义code来标示请求状态，当code返回如下情况为权限有问题，登出并返回到登录页
@@ -63,4 +63,4 @@ service.interceptors.response.use(
     return Promise.reject(error)
   })
 
-export default service
+export default request
