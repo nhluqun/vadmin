@@ -76,9 +76,19 @@ export const asyncRouterMap = [
         icon: 'lock',
         role: ['admin']
       }
+
     }]
   },
-
+  {
+    path: '/register',
+    component: _import('login/register'),
+    name: 'register',
+    meta: {
+      title: 'register',
+      icon: 'lock',
+      role: ['admin']
+    }
+    },
   {
     path: '/icon',
     component: Layout,
