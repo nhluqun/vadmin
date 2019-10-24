@@ -4,7 +4,6 @@ import NProgress from 'nprogress'
 import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-//import { Message } from 'element-ui'//重复
 
 const ser = axios.create({
   baseURL: process.env.BASE_API, // api的base_url

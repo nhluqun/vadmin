@@ -45,15 +45,16 @@ import formerror from '../../components/FormError.vue'
 export default {
 
     data(){
-
         //自定义验证规则
-        const validateRegisterName = (rule, value, callback) => {
+        let validateRegisterName = (rule, value, callback) => {
+         // console.log(isvalidRegisterUsername(value))
             if (!isvalidRegisterUsername(value)) {
                 callback(new Error('用户名已经存在！'))
             } else {
                 callback()
             }
-        }
+        };
+
         let validatePass1 = (rule, value, callback) => {
             // 6-16位, 数字, 字母, 字符至少包含两种, 同时不能包含中文和空格
             let reg = /(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^[^\s\u4e00-\u9fa5]{6,16}$/;
@@ -120,6 +121,7 @@ export default {
 self.errors = res.data.errors;
     }
   },
+
         resetForm(formName){
             this.$refs[formName].resetFields();
         },
