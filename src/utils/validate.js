@@ -2,16 +2,22 @@
  * Created by jiachenpan on 16/11/18.
  */
 import api from '@/api/apiaxios.js'
-import queryUserByName from '@/api/login.js'
-
+//import {queryUserByName} from '@/api/login.js'
+//这个是登录介面的
 export function isvalidUsername(str) {
  // const valid_map = ['admin', 'editor','nhluqun'] //只能这三个中的一个，那其他的怎么办？
   //return valid_map.indexOf(str.trim()) >= 0
-return !nameExist(str)
+return 1
+  //先暂时不做任何判断
 }
-
+export function isvalidRegisterUsername(str) {
+  return !nameExist(str)
+}
 export function nameExist(str) {
-  return api.get("/api/queryUserByName",str)
+ /* const data:{
+    name:str
+  } */
+  return api.get("/api/queryUserByName",data)
 }
 /* 合法uri*/
 export function validateURL(textval) {

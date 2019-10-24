@@ -2,7 +2,7 @@
 
     <div class="login-container">
 
-        <el-form class="login-form" :model="regForm" :rules="rules" label-width="100px" ref="regForm">
+        <el-form class="register-form" :model="regForm" :rules="rules" label-width="100px" ref="regForm">
         <div class="title-container">
           <h3 class="title">{{$t('register.title')}}</h3>
 
@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import api from '../../api/apiaxios.js';
+    import { isvalidRegisterUsername } from '@/utils/validate';
+    import api from '../../api/apiaxios.js';
 //import api from '../../utils/request';
 import formerror from '../../components/FormError.vue'
 export default {
@@ -46,6 +47,13 @@ export default {
     data(){
 
         //自定义验证规则
+        const validateRegisterName = (rule, value, callback) => {
+            if (!isvalidRegisterUsername(value)) {
+                callback(new Error('用户名已经存在！'))
+            } else {
+                callback()
+            }
+        }
         let validatePass1 = (rule, value, callback) => {
             // 6-16位, 数字, 字母, 字符至少包含两种, 同时不能包含中文和空格
             let reg = /(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^[^\s\u4e00-\u9fa5]{6,16}$/;
@@ -76,8 +84,8 @@ export default {
             rules: {
                 name: [
                     { required: true, message: '用户名不能少', trigger: 'blur'},
-                    { min: 6, max: 16, message: '用户名在6到16位之间', trigger: 'blur'}
-
+                    { min: 6, max: 16, message: '用户名在6到16位之间', trigger: 'blur'},
+                    { validator: validateRegisterName, trigger: 'blur'}
                 ],
                 email: [
                     { required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -203,7 +211,7 @@ $light_gray:#eee;
   @include relative;
   height: 100vh;
   background-color: $bg;
-  .login-form {
+  .register-form {
     position: absolute;
     left: 0;
     right: 0;

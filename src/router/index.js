@@ -80,7 +80,7 @@ export const asyncRouterMap = [
     }]
   },
   {
-    path: '/register',
+    path: '/cd register',
     component: _import('login/register'),
     name: 'register',
     meta: {
