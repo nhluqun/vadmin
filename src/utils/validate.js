@@ -13,22 +13,18 @@ return 1
   //先暂时不做任何判断
 }
 export function isvalidRegisterUsername(str) {
-  console.log(!nameExist(str)) //全部返回false
-  return !nameExist(str)
+  console.log(nameExist(str))
+ //if('yes'==nameExist(str)){return true}else{return false}
+
 }
+
 async function nameExist(str) {
   var params = {
     "name" : str
    }
-  ///var parms =  JSON.parse('{ "name":' + str + '}')
-// console.log(parms)
-
- axios.get('/api/queryUserByName', {params}).then(function (response) {
-  // console.log(response)
-  // console.log(response.data.hasname);
-   if (response.data.hasname == 'yes') {return true } else {return false }
-  })
-    .catch(function (error) {
+ axios.get('/api/queryUserByName', {params}).then(function (response){
+   return response.data['hasname']
+   }).catch(function (error) {
       console.log(error);
     });
  }
