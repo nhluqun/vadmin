@@ -1,21 +1,18 @@
 import request from '@/utils/request'
 
-export function loginByUsername(username, password,grant_type,client_id,client_secret,scope) {
+export function loginByUsername(username, password, grant_type, client_id, client_secret, scope) {
+// export function loginByUsername(username, password) {
   const data = {
     username,
-    password,
-    grant_type,
-    client_id,
-    client_secret,
-    scope
-  }
+    password }
   return request({
-    url: '/oauth/token',
+    // url: '/oauth/token',
+    url: '/api/login',
     method: 'post',
     data
   })
 }
-export function loginByName(username,password,grant_type,client_id,client_secret,scope){
+export function loginByName(username, password, grant_type, client_id, client_secret, scope) {
   const data = {
     username,
     password,
@@ -30,7 +27,7 @@ export function loginByName(username,password,grant_type,client_id,client_secret
     data
   })
 }
-export function register(name,password,email,password_confirmation){
+export function register(name, password, email, password_confirmation) {
   const data = {
     name,
     password,
@@ -38,8 +35,8 @@ export function register(name,password,email,password_confirmation){
     password_confirmation
   }
   return request({
-    url:'/api/Aregister',
-    method:'post',
+    url: '/api/Aregister',
+    method: 'post',
     data
   })
 }
@@ -58,12 +55,11 @@ export function getUserInfo() {
   })
 }
 
-export function queryUserByName(name){
-
+export function queryUserByName(name) {
   return request({
-    url:'/api/queryUserByname',
-    method:'get',
-    params:{name}
+    url: '/api/queryUserByname',
+    method: 'get',
+    params: { name }
 
   })
 }

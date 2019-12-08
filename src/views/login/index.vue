@@ -85,14 +85,14 @@ export default {
         this.passwordType = 'password'
       }
     },
-    handleLogin() {
+    handleLogin: function() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-        console.log('login methos');
+          // console.log('login methos')
           this.loading = true
           this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
-console.log('login in')
-            this.loading = false
+            // console.log('login in')
+            //  this.loading = false
             this.$router.push({ path: '/' })
           }).catch(() => {
             this.loading = false
@@ -103,9 +103,9 @@ console.log('login in')
         }
       })
     },
-    handleRegister(){
-   // console.log('come in');
-  //  this.$router.push({path:'/api/aregister'});
+    handleRegister() {
+      // console.log('come in');
+      //  this.$router.push({path:'/api/aregister'});
 
     },
     afterQRScan() {
@@ -170,7 +170,7 @@ $light_gray:#eee;
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "src/styles/mixin.scss";
+@import '../../styles/mixin.scss';
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;

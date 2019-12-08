@@ -25,14 +25,8 @@ import Layout from '../views/layout/Layout'
   }
 **/
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '/register', component: _import('login/register')},
-//  { path: '/register', component: register},
-//  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
-  { path: '/404', component: _import('errorPage/404'), hidden: true },
-  { path: '/401', component: _import('errorPage/401'), hidden: true },
   {
-    path: '',
+    path: '/',
     component: Layout,
     redirect: 'dashboard',
     children: [{
@@ -42,6 +36,13 @@ export const constantRouterMap = [
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
   },
+  { path: '/login', component: _import('login/index'), hidden: true },
+  { path: '/register', component: _import('login/register') },
+  //  { path: '/register', component: register},
+  // { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
+  { path: '/404', component: _import('errorPage/404'), hidden: true },
+  { path: '/401', component: _import('errorPage/401'), hidden: true }
+
   // {
   //   path: '/documentation',
   //   component: Layout,
@@ -56,7 +57,7 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
@@ -88,7 +89,7 @@ export const asyncRouterMap = [
       icon: 'lock',
       role: ['admin']
     }
-    },
+  },
   {
     path: '/icon',
     component: Layout,
@@ -125,14 +126,14 @@ export const asyncRouterMap = [
   },
   {
     path: '/dilixzts',
-    name:'xztlist',
+    name: 'xztlist',
     component: Layout,
     redirect: 'noredirect',
-      meta: {
-      title:'xztlist',
-        icon: 'lock',
-        role: ['admin']
-      },
+    meta: {
+      title: 'xztlist',
+      icon: 'lock',
+      role: ['admin']
+    },
     children: [{
       path: 'List',
       component: _import('dilixzts/List'),
@@ -153,16 +154,16 @@ export const asyncRouterMap = [
         role: ['admin']
       }
     },
-        {
-            path: 'ketang',
-            component: _import('dilixzts/Ketang'),
-            name: 'ketang',
-            meta: {
-                title: 'ketang',
-                role: ['admin']
-            }
-        }
-  ]
+    {
+      path: 'ketang',
+      component: _import('dilixzts/Ketang'),
+      name: 'ketang',
+      meta: {
+        title: 'ketang',
+        role: ['admin']
+      }
+    }
+    ]
   },
   //
   // {

@@ -8,17 +8,15 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss' // global css
 
 import App from './App'
-import router from './router'
-import store from './store'
 
+import store from './store'
 import i18n from './lang' // Internationalization
 import './icons' // icon
 import './errorLog'// error log
 import './permission' // permission control
-//import './mock' // simulation data
-
+// import './mock' // simulation data
+import router from './router'
 import * as filters from './filters' // global filters
-
 
 Vue.use(Element, {
   size: 'medium', // set element-ui default size
@@ -34,8 +32,8 @@ Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
-  router,
   store,
+  router,
   i18n,
   template: '<App/>',
   components: { App }

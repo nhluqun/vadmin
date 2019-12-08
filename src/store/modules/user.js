@@ -1,6 +1,6 @@
-import { loginByUsername, logout, getUserInfo,register,queryUserByName} from '@/api/login'
+import { loginByUsername, logout, getUserInfo, register } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import server from '../../config/api.js';
+// import server from '../../config/api.js'
 const user = {
   state: {
     user: '',
@@ -45,21 +45,23 @@ const user = {
 
   actions: {
     // 用户名登录
-    LoginByUsername({ commit }, userInfo) {
-
+    LoginByUsername: function({ commit }, userInfo) {
       const username = userInfo.username.trim()
-console.log('username='+username);
+      // console.log('username=' + username)
       return new Promise((resolve, reject) => {
-        console.log('password'+userInfo.password+'clientid='+server.client.client_id);
+        // console.log('password' + userInfo.password + 'clientid=' + server.client.client_id)
 
-        loginByUsername(username, userInfo.password,'password',server.client.client_id,server.client.client_secret,'*').then(response => {
-console.log('login success!');
-          const data = response.data
-          commit('SET_TOKEN', data.access_token)//把token改成access_token
-          setToken(response.data.access_token);
+        // loginByUsername(username, userInfo.password, 'password', server.client.client_id, server.client.client_secret, '*').then(response => {
+        loginByUsername(username, userInfo.password).then(response => {
+          console.log('login success!')
+          // const data = response.data
+          console.log(response)
+          // console.log(data)
+          // commit('SET_TOKEN', data.access_token)// 把token改成access_token
+          // setToken(response.data.access_token)
           resolve()
         }).catch(error => {
-          console.log('login fail');
+          console.log('login fail')
           reject(error)
         })
       })
@@ -74,11 +76,11 @@ console.log('login success!');
             reject('error')
           }
           const data = response.data
-          console.log(response.data);
+          console.log(response.data)
           commit('SET_ROLES', data.roles)
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
-          //commit('SET_INTRODUCTION', data.introduction)
+          // commit('SET_INTRODUCTION', data.introduction)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -86,26 +88,24 @@ console.log('login success!');
       })
     },
     // 注册用户
-    Register({ commit}, userInfo) {
+    Register({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
       //  getUserInfo(state.token).then(response => {
-    const name = userInfo.name.trim();
-    const password = userInfo.password.trim();
-    const email=userInfo.email.trim();
-    const password_confirmation=userInfo.password_confirmation.trim();
+        const name = userInfo.name.trim()
+        const password = userInfo.password.trim()
+        const email = userInfo.email.trim()
+        const password_confirmation = userInfo.password_confirmation.trim()
 
-        register(name,password,email,password_confirmation).then(response => {
-
+        register(name, password, email, password_confirmation).then(response => {
           if (!response.data) {
             reject('error')
           }
           resolve(response)
         }).catch(error => {
-          //reject(error)
-console.log(error.response.data);
-//reject(error)
-        return error;
-
+          // reject(error)
+          console.log(error.response.data)
+          // reject(error)
+          return error
         })
       })
     },
@@ -122,7 +122,7 @@ console.log(error.response.data);
     //     })
     //   })
     // },
-//查询有没有这个用户
+    // 查询有没有这个用户
 
     // 登出
     LogOut({ commit, state }) {
